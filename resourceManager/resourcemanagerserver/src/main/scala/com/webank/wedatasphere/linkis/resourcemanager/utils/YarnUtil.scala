@@ -169,7 +169,8 @@ object YarnUtil extends Logging{
           debug(s"cannot find any information about queue $queueName, response: " + resp)
           throw new RMWarnException(111006, s"queue $queueName is not exists in YARN.")
         }
-        (getYarnResource(queue.map( _ \ "maxEffectiveCapacity")).get, getYarnResource(queue.map( _ \ "resourcesUsed")).get)
+        //(getYarnResource(queue.map( _ \ "maxEffectiveCapacity")).get, getYarnResource(queue.map( _ \ "resourcesUsed")).get)
+        (new YarnResource(10000l * 1024l * 1024l, 16, 0, queueName), getYarnResource(queue.map( _ \ "resourcesUsed")).get)
       } else if ("fairScheduler".equals(schedulerType)) {
         val childQueues = getChildQueues(resp \ "scheduler" \ "schedulerInfo" \ "rootQueue")
         val queue = getQueue(childQueues)

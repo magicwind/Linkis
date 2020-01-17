@@ -16,7 +16,10 @@ gateway/core/target/
 gateway/gateway-httpclient-support/target/
 gateway/gateway-ujes-support/target/
 gateway/springcloudgateway/target/
-
+bml/bml-engine-hook/target/
+bml/bmlclient/target/
+bml/bmlcommon/target/
+bml/bmlserver/target/
 
 metadata/target/
 publicService/application/target/
@@ -26,6 +29,7 @@ publicService/target/
 publicService/udf/target/
 publicService/variable/target/
 publicService/workspace/target/
+publicService/workspace/client/workspace-httpclient/target/
 resourceManager/resourcemanagerclient/target/
 resourceManager/resourcemanagercommon/target/
 resourceManager/resourcemanagerserver/target/

@@ -25,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -39,6 +40,8 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 @Component
 public class DataSourceRestfulApi implements DataSourceRestfulRemote {
+
+    Logger logger = Logger.getLogger(DataSourceRestfulApi.class);
 
     @Autowired
     DataSourceService dataSourceService;
@@ -74,6 +77,7 @@ public class DataSourceRestfulApi implements DataSourceRestfulRemote {
     @Path("dbs")
     public Response queryDatabaseInfo(@Context HttpServletRequest req){
         String userName = SecurityFilter.getLoginUsername(req);
+        logger.info("calling dbs api");
         try {
             JsonNode dbs = dataSourceService.getDbs(userName);
             return Message.messageToResponse(Message.ok("").data("dbs", dbs));
@@ -86,6 +90,7 @@ public class DataSourceRestfulApi implements DataSourceRestfulRemote {
     @Path("all")
     public Response queryDbsWithTables(@Context HttpServletRequest req){
         String userName = SecurityFilter.getLoginUsername(req);
+        logger.info("calling all api");
         try {
             JsonNode dbs = dataSourceService.getDbsWithTables(userName);
             return Message.messageToResponse(Message.ok("").data("dbs", dbs));

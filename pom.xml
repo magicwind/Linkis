@@ -112,8 +112,8 @@
     </modules>
 
     <properties>
-        <hadoop.version>2.7.2</hadoop.version>
-        <hive.version>1.2.1</hive.version>
+        <hadoop.version>2.8.5-amzn-4</hadoop.version>
+        <hive.version>2.3.5-amzn-0</hive.version>
         <spring.eureka.version>1.4.4.RELEASE</spring.eureka.version>
         <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
         <gson.version>2.8.5</gson.version>
@@ -421,4 +421,18 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>emr-5.25.0-artifacts</id>
+            <name>EMR 5.25.0 Releases Repository</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://s3.ap-southeast-1.amazonaws.com/ap-southeast-1-emr-artifacts/emr-5.25.0/repos/maven/</url>
+        </repository>
+    </repositories>
 </project>

@@ -138,7 +138,11 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public JsonNode getDbs(String userName) throws Exception {
-        List<String> dbs = hiveMetaDao.getDbsByUser(userName);
+        //List<String> dbs = hiveMetaDao.getDbsByUser(userName);
+        List<String> dbs = Lists.newArrayList();
+        dbs.add("crm");
+        dbs.add("crmtest");
+
         ArrayNode dbsNode = jsonMapper.createArrayNode();
         for(String db : dbs){
             ObjectNode dbNode = jsonMapper.createObjectNode();
@@ -151,7 +155,11 @@ public class DataSourceServiceImpl implements DataSourceService {
     @Override
     public JsonNode getDbsWithTables(String userName) throws Exception {
         ArrayNode dbNodes = jsonMapper.createArrayNode();
-        List<String> dbs = hiveMetaDao.getDbsByUser(userName);
+        //List<String> dbs = hiveMetaDao.getDbsByUser(userName);
+        List<String> dbs = Lists.newArrayList();
+        dbs.add("crm");
+        dbs.add("crmtest");
+
         for(String db : dbs){
             ObjectNode dbNode = jsonMapper.createObjectNode();
             dbNode.put("databaseName", db);
@@ -168,7 +176,16 @@ public class DataSourceServiceImpl implements DataSourceService {
             Map<String, String> map = Maps.newHashMap();
             map.put("dbName", database);
             map.put("userName", userName);
-            listTables =hiveMetaDao.getTablesByDbNameAndUser(map);
+            //listTables =hiveMetaDao.getTablesByDbNameAndUser(map);
+            Map<String, Object> tempTable = Maps.newHashMap();
+            tempTable.put("NAME", "crm_users");
+            tempTable.put("TYPE", "MANAGED_TABLE");
+            tempTable.put("OWNER", "hive");
+            tempTable.put("CREATE_TIME", 0);
+            tempTable.put("LAST_ACCESS_TIME", 100000000);
+
+            listTables.add(tempTable);
+
         } catch (Throwable e) {
             hiveDB = null;
             logger.error("Failed to list Tables:", e);
@@ -195,7 +212,21 @@ public class DataSourceServiceImpl implements DataSourceService {
         Map<String, String> param = Maps.newHashMap();
         param.put("dbName", dbName);
         param.put("tableName", tableName);
-        List<Map<String, Object>> columns = hiveMetaDao.getColumns(param);
+        //List<Map<String, Object>> columns = hiveMetaDao.getColumns(param);
+        List<Map<String, Object>> columns = Lists.newArrayList();
+        Map<String, Object>  idColumn = Maps.newHashMap();
+        idColumn.put("COLUMN_NAME", "id");
+        idColumn.put("TYPE_NAME", "integer");
+        idColumn.put("COMMENT", "primary key");
+
+        Map<String, Object>  nameColumn = Maps.newHashMap();
+        nameColumn.put("COLUMN_NAME", "name");
+        nameColumn.put("TYPE_NAME", "string");
+        nameColumn.put("COMMENT", "user's name");
+
+        columns.add(idColumn);
+        columns.add(nameColumn);
+
         ArrayNode columnsNode = jsonMapper.createArrayNode();
         for(Map<String, Object> column : columns){
             ObjectNode fieldNode = jsonMapper.createObjectNode();
@@ -205,7 +236,14 @@ public class DataSourceServiceImpl implements DataSourceService {
             fieldNode.put("partitioned", false);
             columnsNode.add(fieldNode);
         }
-        List<Map<String, Object>> partitionKeys = hiveMetaDao.getPartitionKeys(param);
+        //List<Map<String, Object>> partitionKeys = hiveMetaDao.getPartitionKeys(param);
+        List<Map<String, Object>> partitionKeys = Lists.newArrayList();
+        Map<String, Object> partKey = Maps.newHashMap();
+        partKey.put("PKEY_NAME", "created_at_dt");
+        partKey.put("PKEY_TYPE", "string");
+        partKey.put("PKEY_COMMENT", "分区键");
+        partitionKeys.add(partKey);
+
         for(Map<String, Object> partitionKey : partitionKeys){
             ObjectNode fieldNode = jsonMapper.createObjectNode();
             fieldNode.put("columnName", (String) partitionKey.get("PKEY_NAME"));

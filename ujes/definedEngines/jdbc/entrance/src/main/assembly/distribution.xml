@@ -103,7 +103,7 @@
                 <exclude>commons-daemon:commons-daemon:jar</exclude>
                 <exclude>commons-dbcp:commons-dbcp:jar</exclude>
                 <exclude>commons-digester:commons-digester:jar</exclude>
-                <exclude>commons-httpclient:commons-httpclient:jar</exclude>
+                <!-- <exclude>commons-httpclient:commons-httpclient:jar</exclude> -->
                 <exclude>commons-io:commons-io:jar</exclude>
                 <exclude>commons-jxpath:commons-jxpath:jar</exclude>
                 <exclude>commons-lang:commons-lang:jar</exclude>
@@ -155,7 +155,7 @@
                 <exclude>org.apache.hadoop:hadoop-auth:jar</exclude>
                 <exclude>org.apache.hadoop:hadoop-common:jar</exclude>
                 <exclude>org.apache.hadoop:hadoop-hdfs:jar</exclude>
-                <exclude>org.apache.htrace:htrace-core:jar</exclude>
+                <!-- <exclude>org.apache.htrace:htrace-core:jar</exclude> -->
                 <exclude>org.apache.httpcomponents:httpclient:jar</exclude>
                 <exclude>org.apache.httpcomponents:httpcore:jar</exclude>
                 <exclude>org.apache.logging.log4j:log4j-api:jar</exclude>
