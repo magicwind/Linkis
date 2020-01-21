@@ -261,7 +261,7 @@ class LoadInstanceResource(val memory: Long, val cores: Int, val instances: Int)
     new LoadInstanceResource(memory / rate, cores / rate, instances * rate)
 
   def moreThan(r: Resource): Boolean =
-    memory > r.memory && cores > r.cores && instances > r.instances
+    memory > r.memory && cores > r.cores && instances >= r.instances
 
   def caseMore(r: Resource): Boolean =
     memory > r.memory || cores > r.cores || instances > r.instances
