@@ -126,6 +126,7 @@
         <jersey.servlet.version>2.23.1</jersey.servlet.version>
         <jetty.version>9.4.11.v20180605</jetty.version>
         <slf4j.version>1.7.12</slf4j.version>
+        <aws-java-sdk.version>1.11.880</aws-java-sdk.version>
         <linkis.version>0.9.1</linkis.version>
         <maven.version>3.3.3</maven.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -215,6 +216,13 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>${aws-java-sdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
