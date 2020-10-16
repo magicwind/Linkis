@@ -30,6 +30,12 @@ import javax.ws.rs.core.Response;
 public interface DataSourceRestfulRemote {
 
     @GetMapping("/api/datasource/dbs")
-    public Response queryDatabaseInfo(HttpServletRequest req);
+    Response queryDatabaseInfo(HttpServletRequest req);
+
+    @GetMapping("/api/datasource/tables")
+    Response queryTables(@RequestParam("database") String database, HttpServletRequest req);
+
+    @GetMapping("/api/datasource/columns")
+    Response queryTableMeta(@RequestParam("database") String database, @RequestParam("table") String table, HttpServletRequest req);
 
 }

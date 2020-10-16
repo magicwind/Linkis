@@ -18,13 +18,11 @@ package com.webank.wedatasphere.linkis.metadata.restful.api;
 
 import com.webank.wedatasphere.linkis.metadata.restful.remote.DataSourceRestfulRemote;
 import com.webank.wedatasphere.linkis.metadata.service.DataSourceService;
-import com.webank.wedatasphere.linkis.metadata.util.Constants;
 import com.webank.wedatasphere.linkis.server.Message;
 import com.webank.wedatasphere.linkis.server.security.SecurityFilter;
-import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +40,7 @@ import javax.ws.rs.core.Response;
 @Component
 public class DataSourceRestfulApi implements DataSourceRestfulRemote {
 
-    Logger logger = LogManager.getLogger(DataSourceRestfulApi.class);
+    Logger logger = LoggerFactory.getLogger(DataSourceRestfulApi.class);
 
     @Autowired
     DataSourceService dataSourceService;
@@ -57,6 +55,30 @@ public class DataSourceRestfulApi implements DataSourceRestfulRemote {
             return Message.messageToResponse(Message.ok("").data("dbs", dbs));
         } catch (Exception e) {
             return Message.messageToResponse(Message.error("Failed to get database(获取数据库失败)", e));
+        }
+    }
+
+    @GET
+    @Path("tables")
+    public Response queryTables(@QueryParam("database") String database, @Context HttpServletRequest req){
+        String userName = SecurityFilter.getLoginUsername(req);
+        try {
+            JsonNode tables = dataSourceService.queryTables(database, userName);
+            return Message.messageToResponse(Message.ok("").data("tables", tables));
+        } catch (Exception e) {
+            return Message.messageToResponse(Message.error("Failed to get tables in database(获取数据库的表失败)", e));
+        }
+    }
+
+    @GET
+    @Path("columns")
+    public Response queryTableMeta(@QueryParam("database") String database,  @QueryParam("table") String table, @Context HttpServletRequest req){
+        String userName = SecurityFilter.getLoginUsername(req);
+        try {
+            JsonNode columns = dataSourceService.queryTableMeta(database, table, userName);
+            return Message.messageToResponse(Message.ok("").data("columns", columns));
+        } catch (Exception e) {
+            return Message.messageToResponse(Message.error("Failed to get data table structure(获取数据表结构失败)", e));
         }
     }
 }

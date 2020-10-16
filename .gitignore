@@ -22,6 +22,7 @@ bml/bmlcommon/target/
 bml/bmlserver/target/
 
 metadata/target/
+metadata-glue/target/
 publicService/application/target/
 publicService/configuration/target/
 publicService/jobhistory/target/

@@ -24,4 +24,8 @@ public interface DataSourceService {
 
     JsonNode getDbs(String userName) throws Exception;
 
+    JsonNode queryTables(String database, String userName);
+
+    JsonNode queryTableMeta(String dbName, String tableName, String userName);
+
 }
